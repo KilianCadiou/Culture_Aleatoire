@@ -17,17 +17,24 @@ if voir:
 
 st.header('Choix Artiste')
 
-choix_genre = st.toggle('Je veux un genre précis.')
+choix_genre = st.toggle('Je veux un genre précis.', value = False)
 
 if choix_genre:
-    playlist = playlist[playlist['Genre'] == choix_genre]
 
-choix_francais = st.toggle('Je veux de la musique française.')
+    genre = st.selectbox('Choisissez le genre:', list(playlist['Genre'].unique()))
+    playlist = playlist[playlist['Genre'] == genre]
+
+choix_francais = st.toggle('Je veux de la musique française.', value = False)
 
 if choix_francais:
-    playlist = playlist[playlist['Français'] == choix_francais]
+    france = st.selectbox('Réponse :', ['Oui', 'Non'])
+    if france == 'Oui':
+        playlist = playlist[playlist['Français'] == True]
+    else:
+        playlist = playlist[playlist['Français'] == False]
 
-choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.")
+choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.", value = False)
+
 if choix_rare:
     playlist = playlist[playlist["Nombre d'écoutes"] == playlist["Nombre d'écoutes"].min()]
 
@@ -36,5 +43,9 @@ proposition = st.checkbox('Propose moi un artiste')
 if proposition:
     liste_artistes = list(playlist['Artiste'].unique())
     artiste_aleatoire = random.choice(liste_artistes)
-    playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"] = playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"].apply(lambda x : x + 1)
     st.markdown(artiste_aleatoire)
+
+    acceptation = st.checkbox('OK je vais écouter ça.')
+    
+    if acceptation:
+        playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"] = playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"].apply(lambda x : x + 1)
