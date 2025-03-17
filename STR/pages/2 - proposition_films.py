@@ -11,34 +11,34 @@ playlist = playlist.sort_values(by = "Genre", ascending = False)
 
 # PROPOSITION ARTISTE
 
-st.header('Choix film')
-st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)
+# st.header('Choix film')
+# st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)
 
-choix_genre = st.toggle('Je veux un genre précis.', value = False)
+# choix_genre = st.toggle('Je veux un genre précis.', value = False)
 
-if choix_genre:
+# if choix_genre:
 
-    genre = st.selectbox('Choisissez le genre:', list(playlist['Genre'].unique()))
-    playlist = playlist[playlist['Genre'] == genre]
+#     genre = st.selectbox('Choisissez le genre:', list(playlist['Genre'].unique()))
+#     playlist = playlist[playlist['Genre'] == genre]
 
-proposition = st.checkbox('Propose moi un film.')
+# proposition = st.checkbox('Propose moi un film.')
 
-if proposition:
-    liste_artistes = list(playlist['titre'].unique())
-    artiste_aleatoire = random.choice(liste_artistes)
-    st.markdown(artiste_aleatoire)
+# if proposition:
+#     liste_artistes = list(playlist['titre'].unique())
+#     artiste_aleatoire = random.choice(liste_artistes)
+#     st.markdown(artiste_aleatoire)
 
-    acceptation = st.checkbox('OK je vais regarder ça.')
+#     acceptation = st.checkbox('OK je vais regarder ça.')
     
-    if acceptation:
-        playlist = playlist[playlist['Titre'] != artiste_aleatoire]
-        playlist = playlist.sort_values(by = "Titre", ascending = False)
-        playlist = playlist.sort_values(by = "Genre", ascending = False)
-        playlist.to_csv('Musique/BD/films_a_jour.csv')
-        playlist = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
+#     if acceptation:
+#         playlist = playlist[playlist['Titre'] != artiste_aleatoire]
+#         playlist = playlist.sort_values(by = "Titre", ascending = False)
+#         playlist = playlist.sort_values(by = "Genre", ascending = False)
+#         playlist.to_csv('Musique/BD/films_a_jour.csv')
+#         playlist = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
 
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+# st.markdown("<br><br>", unsafe_allow_html=True)
 
 st.header('Mettre à jour ma liste.')
 st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)

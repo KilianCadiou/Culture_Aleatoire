@@ -12,7 +12,7 @@ playlist_musique_selection = playlist_musique.copy()
 playlist_livre = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
 playlist_livre_selection = playlist_livre.copy()
 
-st.header('Puisse le sort vous soit favorable.')
+st.header('Puisse le sort vous être favorable.')
 st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)
 
 actions = ['Je veux ...', 'Un Film', 'Une Musique', 'Un Livre']
@@ -97,7 +97,7 @@ if action == 'Un Livre':
     proposition = st.checkbox('Propose moi un livre.')
 
     if proposition:
-        liste_artistes = list(playlist_livre_selection['titre'].unique())
+        liste_artistes = list(playlist_livre_selection['Titre'].unique())
         artiste_aleatoire = random.choice(liste_artistes)
         st.markdown(artiste_aleatoire)
 

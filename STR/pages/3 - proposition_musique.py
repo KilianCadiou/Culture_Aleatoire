@@ -12,49 +12,49 @@ playlist = playlist.sort_values(by = "Genre", ascending = False)
 
 # PROPOSITION ARTISTE
 
-st.header('Choix Artiste')
-st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)
-col1, col2, col3 = st.columns(3)
+# st.header('Choix Artiste')
+# st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)
+# col1, col2, col3 = st.columns(3)
 
-with col1:
-    choix_genre = st.toggle('Je veux un style de musique précis.', value = False)
+# with col1:
+#     choix_genre = st.toggle('Je veux un style de musique précis.', value = False)
 
-    if choix_genre:
+#     if choix_genre:
 
-        genre = st.selectbox('Choisissez le genre:', list(playlist['Genre'].unique()))
-        playlist = playlist[playlist['Genre'] == genre]
+#         genre = st.selectbox('Choisissez le genre:', list(playlist['Genre'].unique()))
+#         playlist = playlist[playlist['Genre'] == genre]
 
-with col2:
+# with col2:
         
-    choix_francais = st.toggle('Je veux de la musique française.', value = False)
+#     choix_francais = st.toggle('Je veux de la musique française.', value = False)
 
-    if choix_francais:
-        france = st.selectbox('Réponse :', ['Oui', 'Non'])
-        if france == 'Oui':
-            playlist = playlist[playlist['Français'] == True]
-        else:
-            playlist = playlist[playlist['Français'] == False]
+#     if choix_francais:
+#         france = st.selectbox('Réponse :', ['Oui', 'Non'])
+#         if france == 'Oui':
+#             playlist = playlist[playlist['Français'] == True]
+#         else:
+#             playlist = playlist[playlist['Français'] == False]
 
-with col3:
+# with col3:
         
-    choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.", value = False)
+#     choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.", value = False)
 
-    if choix_rare:
-        playlist = playlist[playlist["Nombre d'écoutes"] == playlist["Nombre d'écoutes"].min()]
+#     if choix_rare:
+#         playlist = playlist[playlist["Nombre d'écoutes"] == playlist["Nombre d'écoutes"].min()]
 
-proposition = st.checkbox('Propose moi un artiste')
+# proposition = st.checkbox('Propose moi un artiste')
 
-if proposition:
-    liste_artistes = list(playlist['Artiste'].unique())
-    artiste_aleatoire = random.choice(liste_artistes)
-    st.markdown(artiste_aleatoire)
+# if proposition:
+#     liste_artistes = list(playlist['Artiste'].unique())
+#     artiste_aleatoire = random.choice(liste_artistes)
+#     st.markdown(artiste_aleatoire)
 
-    acceptation = st.checkbox('OK je vais écouter ça.')
+#     acceptation = st.checkbox('OK je vais écouter ça.')
     
-    if acceptation:
-        playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"] = playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"].apply(lambda x : x + 1)
+#     if acceptation:
+#         playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"] = playlist[playlist['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"].apply(lambda x : x + 1)
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+# st.markdown("<br><br>", unsafe_allow_html=True)
 
 
 st.header('Mettre à jour ma playlist.')
