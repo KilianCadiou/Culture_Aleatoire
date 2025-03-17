@@ -5,17 +5,17 @@ icon = "🤔"
 
 [[pages]]
 path = "pages/1 - proposition_films.py"
-name = "Films Aléatoires"
+name = "Film"
 icon = "🎥"
 
 [[pages]]
 path = "pages/2 - proposition_musique.py"
-name = "Musique Aléatoire"
+name = "Musique"
 icon = "🎙️"
 
 [[pages]]
 path = "pages/3 - proposition_livre.py"
-name = "Livre Aléatoire"
+name = "Livre"
 icon = "📖"
 
 [[pages]]
