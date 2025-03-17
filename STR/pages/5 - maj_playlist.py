@@ -5,12 +5,7 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-playlist = pd.read_csv('Musique/BD/playlist_a_jour.csv', index_col=0)
-
-voir = st.checkbox('Voir ma playlist.')
-
-if voir:
-    st.dataframe(playlist)
+playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
 
 actions = ['Je veux ...', 'Ajouter un élément', 'Modifier un élément', 'Supprimer un élément']
 
@@ -40,8 +35,8 @@ if action == 'Ajouter un élément':
 
                 if ajout_genre_artiste:
                     playlist.loc[len(playlist)] = [ajout_genre_artiste, ajout_artiste_artiste, international, 0]
-                    playlist.to_csv('Musique/BD/playlist_a_jour.csv')
-                    playlist = pd.read_csv('Musique/BD/playlist_a_jour.csv', index_col=0)
+                    playlist.to_csv('Culture_Aleatoire/BD/playlist_a_jour.csv')
+                    playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
 
 
 if action == 'Modifier un élément':
@@ -60,8 +55,8 @@ if action == 'Supprimer un élément':
                 st.markdown("L'artiste ou le groupe n'est pas dans la playlist.")
             else:
                 playlist = playlist[playlist['Artiste'] != suppr_artiste]
-                playlist.to_csv('Musique/BD/playlist_a_jour.csv')
-                playlist = pd.read_csv('Musique/BD/playlist_a_jour.csv', index_col=0)
+                playlist.to_csv('Culture_Aleatoire/BD/playlist_a_jour.csv')
+                playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
 
     # SUPPRIMER PLAYLIST
 
@@ -71,5 +66,10 @@ if action == 'Supprimer un élément':
         reboot2 = st.checkbox('Êtes-vous sûr ?')
         if reboot2:
             playlist = pd.DataFrame(columns=['Genre', 'Artiste', 'Français', "Nombre d'écoutes"])
-            playlist.to_csv('Musique/BD/playlist_a_jour.csv')
-            playlist = pd.read_csv('Musique/BD/playlist_a_jour.csv', index_col=0)
+            playlist.to_csv('Culture_Aleatoire/BD/playlist_a_jour.csv')
+            playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
+
+voir = st.checkbox('Voir ma playlist.')
+
+if voir:
+    st.dataframe(playlist)

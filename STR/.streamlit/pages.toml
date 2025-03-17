@@ -1,19 +1,34 @@
 [[pages]]
-path = "pages/0 - proposition_films.py"
-name = "Aléatoire"
+path = "pages/0 - Contexte.py"
+name = "Pourquoi ?"
+icon = "🤔"
+
+[[pages]]
+path = "pages/1 - proposition_films.py"
+name = "Films Aléatoires"
 icon = "🎥"
 
 [[pages]]
-path = "pages/1 - proposition_musique.py"
-name = "Aléatoire"
+path = "pages/2 - proposition_musique.py"
+name = "Musique Aléatoire"
 icon = "🎙️"
 
 [[pages]]
-path = "pages/2 - maj_films.py"
-name = "Maj Liste Films"
-icon = "🔎"
+path = "pages/3 - proposition_livre.py"
+name = "Livre Aléatoire"
+icon = "📖"
 
 [[pages]]
-path = "pages/3 - maj_playlist.py"
-name = "Maj Playlist"
-icon = "🔎"
+path = "pages/4 - maj_films.py"
+name = "MAJ - Films"
+icon = "🎛️"
+
+[[pages]]
+path = "pages/5 - maj_playlist.py"
+name = "MAJ - Musique"
+icon = "🎛️"
+
+[[pages]]
+path = "pages/6 - maj_livre.py"
+name = "MAJ - Livres"
+icon = "🎛️"

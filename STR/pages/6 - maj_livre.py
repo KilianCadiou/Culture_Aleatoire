@@ -5,12 +5,7 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-playlist = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
-
-voir = st.checkbox('Voir ma liste de films.')
-
-if voir:
-    st.dataframe(playlist)
+playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
 
 actions = ['Je veux ...', 'Ajouter un élément', 'Modifier un élément', 'Supprimer un élément']
 
@@ -20,23 +15,23 @@ if action == 'Ajouter un élément':
 
     # AJOUTER UN FILM
 
-    artiste = st.checkbox('Je veux ajouter un film.')
+    artiste = st.checkbox('Je veux ajouter un livre.')
 
     if artiste:
         
-        ajout_artiste_artiste = st.text_input("Tapez le film à ajouter :")
+        ajout_artiste_artiste = st.text_input("Tapez le livre à ajouter :")
 
         if ajout_artiste_artiste:
             if ajout_artiste_artiste in playlist['Titre'].unique():
-                st.markdown("Le film existe déjà.")
+                st.markdown("Le livre existe déjà.")
             else:
 
                 ajout_genre_artiste = st.text_input('Tapez le genre :')
 
                 if ajout_genre_artiste:
                     playlist.loc[len(playlist)] = [ajout_genre_artiste, ajout_artiste_artiste]
-                    playlist.to_csv('Musique/BD/films_a_jour.csv')
-                    playlist = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
+                    playlist.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
+                    playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
 
 
 if action == 'Modifier un élément':
@@ -46,25 +41,30 @@ if action == 'Supprimer un élément':
 
     # SUPPRIMER UN ARTISTE
 
-    supprimer = st.checkbox('Je veux supprimer film.')
+    supprimer = st.checkbox('Je veux supprimer un livre.')
 
     if supprimer:
-        suppr_artiste = st.text_input("Tapez le nom du film :")
+        suppr_artiste = st.text_input("Tapez le nom du livre :")
         if suppr_artiste:
             if suppr_artiste not in playlist['Titre'].unique():
-                st.markdown("Le film n'est pas dans la playlist.")
+                st.markdown("Le livre n'est pas dans la liste.")
             else:
                 playlist = playlist[playlist['Titre'] != suppr_artiste]
-                playlist.to_csv('Musique/BD/films_a_jour.csv')
-                playlist = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
+                playlist.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
+                playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
 
     # SUPPRIMER PLAYLIST
 
-    reboot = st.checkbox('Supprimer ma liste de films.')
+    reboot = st.checkbox('Supprimer ma liste de livres.')
 
     if reboot:
         reboot2 = st.checkbox('Êtes-vous sûr ?')
         if reboot2:
             playlist = pd.DataFrame(columns=['Genre', 'Titre'])
-            playlist.to_csv('Musique/BD/films_a_jour.csv')
-            playlist = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
+            playlist.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
+            playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+
+voir = st.checkbox('Voir ma liste de livres.')
+
+if voir:
+    st.dataframe(playlist)
