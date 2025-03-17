@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/KilianCadiou/Culture_Aleatoire/refs/heads/main/STR/img/DALL%C2%B7E-2025-03-17-14.22.23-Minimalistic-logo-design-for-an-application-called-_Culture-Al%C3%A9atoire_.jpg" 
-       alt="bannière" style="width: 90%; max-width: 800px;">
+       alt="bannière" style="width: 20%; max-width: 800px;">
 </p>
 
 
