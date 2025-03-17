@@ -5,7 +5,7 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-st.header("Pourquoi ai-je créé cette page ?")
+st.header("Pourquoi ai-je créé cette application ?")
 
 st.markdown("<br><br>", unsafe_allow_html=True)
 
