@@ -1,11 +1,19 @@
 [[pages]]
-path = "pages/0 - proposition.py"
+path = "pages/0 - proposition_films.py"
+name = "Aléatoire"
+icon = "🎥"
+
+[[pages]]
+path = "pages/1 - proposition_musique.py"
 name = "Aléatoire"
 icon = "🎙️"
 
 [[pages]]
-path = "pages/1 - maj_playlist.py"
-name = "Maj Playlist"
+path = "pages/2 - maj_films.py"
+name = "Maj Liste Films"
 icon = "🔎"
 
-
+[[pages]]
+path = "pages/3 - maj_playlist.py"
+name = "Maj Playlist"
+icon = "🔎"
