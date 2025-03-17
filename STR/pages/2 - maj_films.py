@@ -7,7 +7,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 playlist = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
 
-voir = st.checkbox('Voir ma playlist.')
+voir = st.checkbox('Voir ma liste de films.')
 
 if voir:
     st.dataframe(playlist)
