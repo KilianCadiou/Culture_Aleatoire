@@ -13,7 +13,7 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.image('Culture_Aleatoire/STR/img/DALL·E-2025-03-17-14.28.jpg', use_container_width=True)
+    st.image('https://raw.githubusercontent.com/KilianCadiou/Culture_Aleatoire/refs/heads/main/STR/img/DALL%C2%B7E-2025-03-17-14.28.jpg', use_container_width=True)
 
 with col2:
     st.markdown("J'ai toujours eu tendance à noter le nom d'artistes, de films ou de livres que je découvre.")

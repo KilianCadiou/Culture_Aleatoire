@@ -29,17 +29,27 @@ if action == 'Un Film':
         playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
 
     liste_artistes = list(playlist_film_selection['Titre'].unique())
-    artiste_aleatoire = random.choice(liste_artistes)
-    st.markdown(artiste_aleatoire)
 
-    acceptation = st.checkbox('OK je vais regarder ça.')
-    
-    if acceptation:
-        playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
-        playlist_film = playlist_film.sort_values(by = "Titre", ascending = False)
-        playlist_film = playlist_film.sort_values(by = "Genre", ascending = False)
-        playlist_film.to_csv('Musique/BD/films_a_jour.csv')
-        playlist_film = pd.read_csv('Musique/BD/films_a_jour.csv', index_col=0)
+    resultat = st.checkbox('On lance les dés.')
+
+    if resultat:
+        artiste_aleatoire = random.choice(liste_artistes)
+        st.markdown(artiste_aleatoire)
+
+        relancer = st.toggle('Relancer mon choix.', value = False)
+
+        if relancer:
+            artiste_aleatoire = random.choice(liste_artistes)
+            st.markdown(artiste_aleatoire)
+
+        acceptation = st.checkbox('OK je vais regarder ça.')
+        
+        if acceptation:
+            playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
+            playlist_film = playlist_film.sort_values(by = "Titre", ascending = False)
+            playlist_film = playlist_film.sort_values(by = "Genre", ascending = False)
+            playlist_film.to_csv('Culture_Aleatoire/BD/films_a_jour.csv')
+            playlist_film = pd.read_csv('Culture_Aleatoire/BD/films_a_jour.csv', index_col=0)
 
 if action == 'Une Musique':
     
@@ -72,15 +82,23 @@ if action == 'Une Musique':
         if choix_rare:
             playlist_musique_selection = playlist_musique_selection[playlist_musique_selection["Nombre d'écoutes"] == playlist_musique_selection["Nombre d'écoutes"].min()]
 
-    proposition = st.checkbox('Propose moi un artiste')
+    
+    liste_artistes = list(playlist_musique_selection['Artiste'].unique())
 
-    if proposition:
-        liste_artistes = list(playlist_musique_selection['Artiste'].unique())
+    resultat = st.checkbox('On lance les dés.')
+
+    if resultat:
         artiste_aleatoire = random.choice(liste_artistes)
         st.markdown(artiste_aleatoire)
 
-        acceptation = st.checkbox('OK je vais écouter ça.')
+        relancer = st.toggle('Relancer mon choix.', value = False)
+
+        if relancer:
+            artiste_aleatoire = random.choice(liste_artistes)
+            st.markdown(artiste_aleatoire)
         
+        acceptation = st.checkbox('OK je vais écouter ça.')
+            
         if acceptation:
             playlist_musique[playlist_musique['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"] = playlist_musique[playlist_musique['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"].apply(lambda x : x + 1)
 
@@ -94,12 +112,19 @@ if action == 'Un Livre':
         genre = st.selectbox('Choisissez le genre:', list(playlist_livre['Genre'].unique()))
         playlist = playlist_livre_selection[playlist_livre_selection['Genre'] == genre]
 
-    proposition = st.checkbox('Propose moi un livre.')
+    liste_artistes = list(playlist_livre_selection['Titre'].unique())
 
-    if proposition:
-        liste_artistes = list(playlist_livre_selection['Titre'].unique())
+    resultat = st.checkbox('On lance les dés.')
+
+    if resultat:
         artiste_aleatoire = random.choice(liste_artistes)
         st.markdown(artiste_aleatoire)
+
+        relancer = st.toggle('Relancer mon choix.', value = False)
+
+        if relancer:
+            artiste_aleatoire = random.choice(liste_artistes)
+            st.markdown(artiste_aleatoire)
 
         acceptation = st.checkbox('OK je vais lire ça.')
         
