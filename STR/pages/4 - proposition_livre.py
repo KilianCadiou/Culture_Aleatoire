@@ -5,7 +5,7 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+playlist = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
 playlist = playlist.sort_values(by = "Titre", ascending = False)
 playlist = playlist.sort_values(by = "Genre", ascending = False)
 
@@ -34,8 +34,8 @@ playlist = playlist.sort_values(by = "Genre", ascending = False)
 #         playlist = playlist[playlist['Titre'] != artiste_aleatoire]
 #         playlist = playlist.sort_values(by = "Titre", ascending = False)
 #         playlist = playlist.sort_values(by = "Genre", ascending = False)
-#         playlist.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
-#         playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+#         playlist.to_csv('BD/livres_a_jour.csv')
+#         playlist = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
 
 
 # st.markdown("<br><br>", unsafe_allow_html=True)
@@ -68,8 +68,8 @@ if action == 'Ajouter un élément':
                     playlist.loc[len(playlist)] = [ajout_genre_artiste, ajout_artiste_artiste]
                     playlist = playlist.sort_values(by = "Titre", ascending = False)
                     playlist = playlist.sort_values(by = "Genre", ascending = False)
-                    playlist.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
-                    playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+                    playlist.to_csv('BD/livres_a_jour.csv')
+                    playlist = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
 
 
 if action == 'Modifier un élément':
@@ -90,8 +90,8 @@ if action == 'Supprimer un élément':
                 playlist = playlist[playlist['Titre'] != suppr_artiste]
                 playlist = playlist.sort_values(by = "Titre", ascending = False)
                 playlist = playlist.sort_values(by = "Genre", ascending = False)
-                playlist.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
-                playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+                playlist.to_csv('BD/livres_a_jour.csv')
+                playlist = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
 
     # SUPPRIMER PLAYLIST
 
@@ -103,8 +103,8 @@ if action == 'Supprimer un élément':
             playlist = pd.DataFrame(columns=['Genre', 'Titre'])
             playlist = playlist.sort_values(by = "Titre", ascending = False)
             playlist = playlist.sort_values(by = "Genre", ascending = False)
-            playlist.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
-            playlist = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+            playlist.to_csv('BD/livres_a_jour.csv')
+            playlist = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
 
 voir = st.checkbox('Voir ma liste de livres.')
 
