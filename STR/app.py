@@ -44,14 +44,16 @@ custom_css = """
 
 
 st.markdown(custom_css, unsafe_allow_html=True)
-st.logo("https://github.com/KilianCadiou/Culture_Aleatoire/blob/31a6b7836c76c1decf72a1a68a09098b81bbd4f3/STR/img/DALL%C2%B7E-2025-03-17-14.22.23-Minimalistic-logo-design-for-an-application-called-_Culture-Al%C3%A9atoire_.jpg", size = 'large')
+st.logo("https://raw.githubusercontent.com/KilianCadiou/Culture_Aleatoire/refs/heads/main/STR/img/DALL%C2%B7E-2025-03-17-14.22.23-Minimalistic-logo-design-for-an-application-called-_Culture-Al%C3%A9atoire_.jpg", size = 'large')
 
-config = toml.load("Culture_Aleatoire/STR/.streamlit/pages.toml")
+
+
+config = toml.load(".streamlit/pages.toml")
 print(config)
 
 # nav = get_nav_from_toml("STR/.streamlit/pages.toml")
 
-nav = get_nav_from_toml("Culture_Aleatoire/STR/.streamlit/pages.toml")
+nav = get_nav_from_toml(".streamlit/pages.toml")
 
 pg = st.navigation(nav)
 
