@@ -5,11 +5,11 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-playlist_film = pd.read_csv('Culture_Aleatoire/BD/films_a_jour.csv', index_col=0)
+playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
 playlist_film_selection = playlist_film.copy()
-playlist_musique = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
+playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0)
 playlist_musique_selection = playlist_musique.copy()
-playlist_livre = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
 playlist_livre_selection = playlist_livre.copy()
 
 st.header('Puisse le sort vous être favorable.')
@@ -48,8 +48,8 @@ if action == 'Un Film':
             playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
             playlist_film = playlist_film.sort_values(by = "Titre", ascending = False)
             playlist_film = playlist_film.sort_values(by = "Genre", ascending = False)
-            playlist_film.to_csv('Culture_Aleatoire/BD/films_a_jour.csv')
-            playlist_film = pd.read_csv('Culture_Aleatoire/BD/films_a_jour.csv', index_col=0)
+            playlist_film.to_csv('BD/films_a_jour.csv')
+            playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
 
 if action == 'Une Musique':
     
@@ -132,6 +132,6 @@ if action == 'Un Livre':
             playlist_livre = playlist_livre[playlist_livre['Titre'] != artiste_aleatoire]
             playlist_livre = playlist_livre.sort_values(by = "Titre", ascending = False)
             playlist_livre = playlist_livre.sort_values(by = "Genre", ascending = False)
-            playlist_livre.to_csv('Culture_Aleatoire/BD/livres_a_jour.csv')
-            playlist_livre = pd.read_csv('Culture_Aleatoire/BD/livres_a_jour.csv', index_col=0)
+            playlist_livre.to_csv('BD/livres_a_jour.csv')
+            playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
 
