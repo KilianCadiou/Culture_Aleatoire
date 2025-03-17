@@ -1,19 +1,24 @@
 [[pages]]
 path = "pages/0 - Contexte.py"
-name = "Pourquoi ?"
+name = "Contexte"
 icon = "🤔"
 
 [[pages]]
-path = "pages/1 - proposition_films.py"
+path = "pages/1 - culturette russe.py"
+name = "Culturette Russe"
+icon = "🎲"
+
+[[pages]]
+path = "pages/2 - proposition_films.py"
 name = "Film"
 icon = "🎥"
 
 [[pages]]
-path = "pages/2 - proposition_musique.py"
+path = "pages/3 - proposition_musique.py"
 name = "Musique"
 icon = "🎙️"
 
 [[pages]]
-path = "pages/3 - proposition_livre.py"
+path = "pages/4 - proposition_livre.py"
 name = "Livre"
 icon = "📖"

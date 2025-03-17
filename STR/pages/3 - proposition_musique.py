@@ -6,15 +6,18 @@ warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
+playlist = playlist.sort_values(by = "Artiste", ascending = False)
+playlist = playlist.sort_values(by = "Français", ascending = False)
+playlist = playlist.sort_values(by = "Genre", ascending = False)
 
 # PROPOSITION ARTISTE
 
 st.header('Choix Artiste')
-
+st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    choix_genre = st.toggle('Je veux un genre précis.', value = False)
+    choix_genre = st.toggle('Je veux un style de musique précis.', value = False)
 
     if choix_genre:
 
@@ -53,8 +56,9 @@ if proposition:
 
 st.markdown("<br><br>", unsafe_allow_html=True)
 
-st.header('Mettre à jour ma playlist.')
 
+st.header('Mettre à jour ma playlist.')
+st.markdown("<hr style='border: 1px solid white; width: 100%;'>", unsafe_allow_html=True)
 actions = ['Je veux ...', 'Ajouter un élément', 'Modifier un élément', 'Supprimer un élément']
 
 action = st.selectbox('Que souhaitez-vous faire ?', actions)
@@ -83,6 +87,9 @@ if action == 'Ajouter un élément':
 
                 if ajout_genre_artiste:
                     playlist.loc[len(playlist)] = [ajout_genre_artiste, ajout_artiste_artiste, international, 0]
+                    playlist = playlist.sort_values(by = "Artiste", ascending = False)
+                    playlist = playlist.sort_values(by = "Français", ascending = False)
+                    playlist = playlist.sort_values(by = "Genre", ascending = False)
                     playlist.to_csv('Culture_Aleatoire/BD/playlist_a_jour.csv')
                     playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
 
@@ -103,6 +110,9 @@ if action == 'Supprimer un élément':
                 st.markdown("L'artiste ou le groupe n'est pas dans la playlist.")
             else:
                 playlist = playlist[playlist['Artiste'] != suppr_artiste]
+                playlist = playlist.sort_values(by = "Artiste", ascending = False)
+                playlist = playlist.sort_values(by = "Français", ascending = False)
+                playlist = playlist.sort_values(by = "Genre", ascending = False)
                 playlist.to_csv('Culture_Aleatoire/BD/playlist_a_jour.csv')
                 playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
 
@@ -114,6 +124,9 @@ if action == 'Supprimer un élément':
         reboot2 = st.checkbox('Êtes-vous sûr ?')
         if reboot2:
             playlist = pd.DataFrame(columns=['Genre', 'Artiste', 'Français', "Nombre d'écoutes"])
+            playlist = playlist.sort_values(by = "Artiste", ascending = False)
+            playlist = playlist.sort_values(by = "Français", ascending = False)
+            playlist = playlist.sort_values(by = "Genre", ascending = False)
             playlist.to_csv('Culture_Aleatoire/BD/playlist_a_jour.csv')
             playlist = pd.read_csv('Culture_Aleatoire/BD/playlist_a_jour.csv', index_col=0)
 
