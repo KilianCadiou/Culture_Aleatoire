@@ -17,18 +17,3 @@ icon = "🎙️"
 path = "pages/3 - proposition_livre.py"
 name = "Livre"
 icon = "📖"
-
-[[pages]]
-path = "pages/4 - maj_films.py"
-name = "MAJ - Films"
-icon = "🎛️"
-
-[[pages]]
-path = "pages/5 - maj_playlist.py"
-name = "MAJ - Musique"
-icon = "🎛️"
-
-[[pages]]
-path = "pages/6 - maj_livre.py"
-name = "MAJ - Livres"
-icon = "🎛️"
