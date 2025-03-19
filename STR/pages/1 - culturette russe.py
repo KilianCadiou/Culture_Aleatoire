@@ -5,7 +5,7 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-playlist_film = pd.read_csv('BD/films_a_jour.csv', sep = ";", encoding='utf-8')
+playlist_film = pd.read_csv('BD/films_a_jour.csv', sep = ";")
 playlist_film_selection = playlist_film.copy()
 playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', sep = ";") 
 playlist_musique_selection = playlist_musique.copy()
