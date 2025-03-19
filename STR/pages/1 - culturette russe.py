@@ -94,6 +94,8 @@ if action == 'Une Musique':
         relancer = st.toggle('Relancer mon choix.', value = False)
 
         if relancer:
+            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
+            liste_artistes = list(playlist_musique_selection['Artiste'].unique())
             artiste_aleatoire = random.choice(liste_artistes)
             st.markdown(artiste_aleatoire)
         
