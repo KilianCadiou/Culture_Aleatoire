@@ -6,36 +6,45 @@ import os
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 import json
+import streamlit as st
 
 # Filtrage des warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-# Authentification Google Drive
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from google.auth.transport.requests import Request
+import streamlit as st
+
+# Utilisation de Google Auth pour l'authentification
 def google_drive_auth():
-    gauth = GoogleAuth()
-
-    # Charger les credentials depuis les secrets de Streamlit
-    credentials_json = st.secrets["google_drive"]["GOOGLE_DRIVE_CREDENTIALS"]
-    credentials = json.loads(credentials_json)
-
-    # Charger les credentials dans l'authentification PyDrive
-    gauth.credentials = GoogleAuth()
-    gauth.credentials.access_token = credentials["access_token"]
-    gauth.credentials.refresh_token = credentials["refresh_token"]
-    gauth.credentials.client_id = credentials["client_id"]
-    gauth.credentials.client_secret = credentials["client_secret"]
-    gauth.credentials.token_uri = credentials["token_uri"]
-    gauth.credentials.auth_uri = credentials["auth_uri"]
-    gauth.credentials.auth_provider_x509_cert_url = credentials["auth_provider_x509_cert_url"]
+    creds = None
+    SCOPES = ['https://www.googleapis.com/auth/drive']
     
-    # Si les credentials sont expirés, les rafraîchir
-    if gauth.credentials.access_token_expired:
-        gauth.credentials.refresh(gauth.credentials)
+    # Le fichier token.json stocke les jetons d'accès et de rafraîchissement de l'utilisateur.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    
+    # Si aucun token valide n'existe, demandez à l'utilisateur de se connecter.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'client_secrets.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        
+        # Sauvegarde du token pour les prochaines exécutions
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+    
+    # Construction du service Drive
+    service = build('drive', 'v3', credentials=creds)
+    return service
 
-    gauth.SaveCredentialsFile('client_secrets.json')  # Sauvegarder les credentials pour une future utilisation
-    drive = GoogleDrive(gauth)
-    return drive
+
 
 # Télécharger un fichier CSV depuis Google Drive
 def download_csv(file_id, local_filename):
