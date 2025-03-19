@@ -14,7 +14,16 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 # Authentification Google Drive
 def google_drive_auth():
     gauth = GoogleAuth()
-    gauth.LocalWebserverAuth()  # Lancement du serveur local pour authentification
+    gauth.LoadCredentialsFile('client_secrets.json')  # Assurez-vous que le fichier est correct
+
+    if gauth.credentials is None:
+        gauth.LocalWebserverAuth()  # Authentification par navigateur
+    elif gauth.access_token_expired:
+        gauth.Refresh()
+    else:
+        gauth.Authorize()
+
+    gauth.SaveCredentialsFile('client_secrets.json')
     drive = GoogleDrive(gauth)
     return drive
 
