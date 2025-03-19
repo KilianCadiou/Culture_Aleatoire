@@ -44,10 +44,11 @@ if action == 'Un Film':
         acceptation = st.checkbox('OK je vais regarder ça.')
 
         if acceptation: 
+            # Modification des données
             playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
             playlist_film = playlist_film.sort_values(by=["Titre", "Genre"], ascending=False)
-            playlist_film.to_csv('BD/films_a_jour.csv', index=False)
-            playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
+            # Sauvegarde dans le fichier CSV
+            playlist_film.to_csv('BD/films_a_jour.csv', index=True)  # Assurez-vous que l'index est bien écrit
 
 elif action == 'Une Musique':
     col1, col2, col3 = st.columns(3)
@@ -90,9 +91,10 @@ elif action == 'Une Musique':
         acceptation = st.checkbox('OK je vais écouter ça.')
 
         if acceptation:
+            # Modification des données
             playlist_musique.loc[playlist_musique['Artiste'] == artiste_aleatoire, "Nombre d'écoutes"] += 1
-            playlist_musique.to_csv('BD/playlist_a_jour.csv', index=False)
-            playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0)
+            # Sauvegarde dans le fichier CSV
+            playlist_musique.to_csv('BD/playlist_a_jour.csv', index=True)
 
 elif action == 'Un Livre':
     choix_genre = st.checkbox('Je veux un genre précis.', value=False)
@@ -116,7 +118,8 @@ elif action == 'Un Livre':
         acceptation = st.checkbox('OK je vais lire ça.')
 
         if acceptation:
+            # Modification des données
             playlist_livre = playlist_livre[playlist_livre['Titre'] != artiste_aleatoire]
             playlist_livre = playlist_livre.sort_values(by=["Titre", "Genre"], ascending=False)
-            playlist_livre.to_csv('BD/livres_a_jour.csv', index=False)
-            playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
+            # Sauvegarde dans le fichier CSV
+            playlist_livre.to_csv('BD/livres_a_jour.csv', index=True)
