@@ -1,12 +1,12 @@
 [[pages]]
-path = "pages/0 - Contexte.py"
-name = "Contexte"
-icon = "🤔"
-
-[[pages]]
 path = "pages/1 - culturette russe.py"
 name = "Culturette Russe"
 icon = "🎲"
+
+[[pages]]
+path = "pages/0 - Contexte.py"
+name = "Contexte"
+icon = "🤔"
 
 [[pages]]
 path = "pages/2 - proposition_films.py"
