@@ -17,18 +17,33 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 import streamlit as st
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+import os
+import streamlit as st
+import json
 
+# Fonction pour s'authentifier via un token existant
 def google_drive_auth():
-    # Charger les credentials depuis les secrets de Streamlit Cloud
-    client_secrets = json.loads(st.secrets["google_drive"]["GOOGLE_DRIVE_CREDENTIALS"])
-    
-    # Initialiser le flux d'authentification
-    flow = InstalledAppFlow.from_client_config(client_secrets, scopes=["https://www.googleapis.com/auth/drive"])
-    creds = flow.run_local_server(port=0)
-    
-    # Authentifier et créer un service Google Drive
-    drive = GoogleDrive(creds)
-    return drive
+    # Vérifiez si le fichier token.json existe
+    if os.path.exists("token.json"):
+        creds = None
+        with open("token.json", "r") as token_file:
+            creds = json.load(token_file)
+    else:
+        # Si aucun token existant, procédez à une nouvelle autorisation
+        client_secrets = json.loads(st.secrets["google_drive"]["GOOGLE_DRIVE_CREDENTIALS"])
+        flow = InstalledAppFlow.from_client_config(client_secrets, scopes=["https://www.googleapis.com/auth/drive"])
+        creds = flow.run_local_server(port=0)
+
+        # Sauvegarder les informations d'authentification dans un fichier token.json
+        with open("token.json", "w") as token_file:
+            json.dump(creds.to_json(), token_file)
+
+    # Créer un service Drive
+    drive_service = build("drive", "v3", credentials=creds)
+    return drive_service
+
 
 # Télécharger un fichier CSV depuis Google Drive
 def download_csv(file_id, local_filename):
