@@ -34,131 +34,128 @@ def upload_csv(file_id, local_filename):
     upload_file.Upload()
 
 # Fonction principale de gestion de l'interface Streamlit
-def main():
-    st.title("Gestion des CSV avec Google Drive")
-    
-    # ID des fichiers CSV sur Google Drive
-    file_ids = {
-        'films': '1qVgY-V1j6BK83ZGG76zD-fHHjfvOevJB',
-        'musique': '1qXWSjoCfCYbKfz58wlad_hKF4moyjZZC',
-        'livres': '1qXPsMDfihJMkPyr0Z2xi-X6fJP5hlUza'
-    }
-    
-    # Télécharger les CSV depuis Google Drive
-    st.write("Téléchargement du fichier CSV...")
-    film_df = download_csv(file_ids['films'], 'films_a_jour.csv')
-    musique_df = download_csv(file_ids['musique'], 'playlist_a_jour.csv')
-    livre_df = download_csv(file_ids['livres'], 'livres_a_jour.csv')
-    
-    st.write(film_df.head())
-    
-    # Modifier le CSV de films
-    if st.button("Modifier le fichier CSV Films"):
-        film_df['Titre'] = film_df['Titre'].str.upper()  # Exemple de modification
-        film_df.to_csv('films_a_jour.csv', index=False)
-        st.write("Fichier films modifié !")
-    
-    # Ré-uploader le fichier CSV de films modifié
-    if st.button("Uploader le fichier modifié Films sur Google Drive"):
-        upload_csv(file_ids['films'], 'films_a_jour.csv')
-        st.write("Fichier films mis à jour sur Google Drive !")
-    
-    # Choisir l'action souhaitée
-    actions = ['Je veux ...', 'Un Film', 'Une Musique', 'Un Livre']
-    action = st.selectbox('Que souhaitez-vous faire ?', actions)
 
-    # Processus pour choisir un film
-    if action == 'Un Film':
-        playlist_film_selection = film_df.copy()
-        choix_genre = st.checkbox('Je veux un genre précis.', value=False)
+st.title("Gestion des CSV avec Google Drive")
+
+# ID des fichiers CSV sur Google Drive
+file_ids = {
+    'films': '1qVgY-V1j6BK83ZGG76zD-fHHjfvOevJB',
+    'musique': '1qXWSjoCfCYbKfz58wlad_hKF4moyjZZC',
+    'livres': '1qXPsMDfihJMkPyr0Z2xi-X6fJP5hlUza'
+}
+
+# Télécharger les CSV depuis Google Drive
+st.write("Téléchargement du fichier CSV...")
+film_df = download_csv(file_ids['films'], 'films_a_jour.csv')
+musique_df = download_csv(file_ids['musique'], 'playlist_a_jour.csv')
+livre_df = download_csv(file_ids['livres'], 'livres_a_jour.csv')
+
+st.write(film_df.head())
+
+# Modifier le CSV de films
+if st.button("Modifier le fichier CSV Films"):
+    film_df['Titre'] = film_df['Titre'].str.upper()  # Exemple de modification
+    film_df.to_csv('films_a_jour.csv', index=False)
+    st.write("Fichier films modifié !")
+
+# Ré-uploader le fichier CSV de films modifié
+if st.button("Uploader le fichier modifié Films sur Google Drive"):
+    upload_csv(file_ids['films'], 'films_a_jour.csv')
+    st.write("Fichier films mis à jour sur Google Drive !")
+
+# Choisir l'action souhaitée
+actions = ['Je veux ...', 'Un Film', 'Une Musique', 'Un Livre']
+action = st.selectbox('Que souhaitez-vous faire ?', actions)
+
+# Processus pour choisir un film
+if action == 'Un Film':
+    playlist_film_selection = film_df.copy()
+    choix_genre = st.checkbox('Je veux un genre précis.', value=False)
+    if choix_genre:
+        genre = st.selectbox('Choisissez le genre:', list(playlist_film_selection['Genre'].unique()))
+        playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
+    
+    liste_artistes = list(playlist_film_selection['Titre'].unique())
+    resultat = st.checkbox('On lance les dés.')
+    
+    if resultat:
+        artiste_aleatoire = random.choice(liste_artistes)
+        st.markdown(artiste_aleatoire)
+        
+        if st.checkbox('Relancer mon choix.', value=False):
+            artiste_aleatoire = random.choice(liste_artistes)
+            st.markdown(artiste_aleatoire)
+        
+        if st.checkbox('OK je vais regarder ça.'):
+            playlist_film_selection = playlist_film_selection[playlist_film_selection['Titre'] != artiste_aleatoire]
+            playlist_film_selection = playlist_film_selection.sort_values(by=["Titre", "Genre"], ascending=False)
+            playlist_film_selection.to_csv('films_a_jour.csv', index=False)
+            upload_csv(file_ids['films'], 'films_a_jour.csv')
+
+# Processus pour choisir de la musique
+if action == 'Une Musique':
+    playlist_musique_selection = musique_df.copy()
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        choix_genre = st.checkbox('Je veux un style de musique précis.', value=False)
         if choix_genre:
-            genre = st.selectbox('Choisissez le genre:', list(playlist_film_selection['Genre'].unique()))
-            playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
-        
-        liste_artistes = list(playlist_film_selection['Titre'].unique())
-        resultat = st.checkbox('On lance les dés.')
-        
-        if resultat:
-            artiste_aleatoire = random.choice(liste_artistes)
-            st.markdown(artiste_aleatoire)
-            
-            if st.checkbox('Relancer mon choix.', value=False):
-                artiste_aleatoire = random.choice(liste_artistes)
-                st.markdown(artiste_aleatoire)
-            
-            if st.checkbox('OK je vais regarder ça.'):
-                playlist_film_selection = playlist_film_selection[playlist_film_selection['Titre'] != artiste_aleatoire]
-                playlist_film_selection = playlist_film_selection.sort_values(by=["Titre", "Genre"], ascending=False)
-                playlist_film_selection.to_csv('films_a_jour.csv', index=False)
-                upload_csv(file_ids['films'], 'films_a_jour.csv')
+            genre = st.selectbox('Choisissez le genre:', list(playlist_musique_selection['Genre'].unique()))
+            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Genre'] == genre]
 
-    # Processus pour choisir de la musique
-    if action == 'Une Musique':
-        playlist_musique_selection = musique_df.copy()
-        col1, col2, col3 = st.columns(3)
+    with col2:
+        choix_francais = st.checkbox('Je veux de la musique française.', value=False)
+        if choix_francais:
+            france = st.selectbox('Réponse :', ['Oui', 'Non'])
+            if france == 'Oui':
+                playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == True]
+            else:
+                playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == False]
 
-        with col1:
-            choix_genre = st.checkbox('Je veux un style de musique précis.', value=False)
-            if choix_genre:
-                genre = st.selectbox('Choisissez le genre:', list(playlist_musique_selection['Genre'].unique()))
-                playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Genre'] == genre]
+    with col3:
+        choix_rare = st.checkbox("Je veux un artiste que j'ai peu écouté.", value=False)
+        if choix_rare:
+            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection["Nombre d'écoutes"] == playlist_musique_selection["Nombre d'écoutes"].min()]
 
-        with col2:
-            choix_francais = st.checkbox('Je veux de la musique française.', value=False)
-            if choix_francais:
-                france = st.selectbox('Réponse :', ['Oui', 'Non'])
-                if france == 'Oui':
-                    playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == True]
-                else:
-                    playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == False]
+    liste_artistes = list(playlist_musique_selection['Artiste'].unique())
+    resultat = st.checkbox('On lance les dés.')
 
-        with col3:
-            choix_rare = st.checkbox("Je veux un artiste que j'ai peu écouté.", value=False)
-            if choix_rare:
-                playlist_musique_selection = playlist_musique_selection[playlist_musique_selection["Nombre d'écoutes"] == playlist_musique_selection["Nombre d'écoutes"].min()]
+    if resultat:
+        artiste_aleatoire = random.choice(liste_artistes)
+        st.markdown(artiste_aleatoire)
 
-        liste_artistes = list(playlist_musique_selection['Artiste'].unique())
-        resultat = st.checkbox('On lance les dés.')
-
-        if resultat:
+        if st.checkbox('Relancer mon choix.', value=False):
+            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
+            liste_artistes = list(playlist_musique_selection['Artiste'].unique())
             artiste_aleatoire = random.choice(liste_artistes)
             st.markdown(artiste_aleatoire)
 
-            if st.checkbox('Relancer mon choix.', value=False):
-                playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
-                liste_artistes = list(playlist_musique_selection['Artiste'].unique())
-                artiste_aleatoire = random.choice(liste_artistes)
-                st.markdown(artiste_aleatoire)
+        if st.checkbox('OK je vais écouter ça.'):
+            musique_df.loc[musique_df['Artiste'] == artiste_aleatoire, "Nombre d'écoutes"] += 1
+            musique_df.to_csv('playlist_a_jour.csv', index=False)
+            upload_csv(file_ids['musique'], 'playlist_a_jour.csv')
 
-            if st.checkbox('OK je vais écouter ça.'):
-                musique_df.loc[musique_df['Artiste'] == artiste_aleatoire, "Nombre d'écoutes"] += 1
-                musique_df.to_csv('playlist_a_jour.csv', index=False)
-                upload_csv(file_ids['musique'], 'playlist_a_jour.csv')
+# Processus pour choisir un livre
+if action == 'Un Livre':
+    playlist_livre_selection = livre_df.copy()
+    choix_genre = st.checkbox('Je veux un genre précis.', value=False)
+    if choix_genre:
+        genre = st.selectbox('Choisissez le genre:', list(playlist_livre_selection['Genre'].unique()))
+        playlist_livre_selection = playlist_livre_selection[playlist_livre_selection['Genre'] == genre]
+    
+    liste_artistes = list(playlist_livre_selection['Titre'].unique())
+    resultat = st.checkbox('On lance les dés.')
 
-    # Processus pour choisir un livre
-    if action == 'Un Livre':
-        playlist_livre_selection = livre_df.copy()
-        choix_genre = st.checkbox('Je veux un genre précis.', value=False)
-        if choix_genre:
-            genre = st.selectbox('Choisissez le genre:', list(playlist_livre_selection['Genre'].unique()))
-            playlist_livre_selection = playlist_livre_selection[playlist_livre_selection['Genre'] == genre]
-        
-        liste_artistes = list(playlist_livre_selection['Titre'].unique())
-        resultat = st.checkbox('On lance les dés.')
+    if resultat:
+        artiste_aleatoire = random.choice(liste_artistes)
+        st.markdown(artiste_aleatoire)
 
-        if resultat:
+        if st.checkbox('Relancer mon choix.', value=False):
             artiste_aleatoire = random.choice(liste_artistes)
             st.markdown(artiste_aleatoire)
 
-            if st.checkbox('Relancer mon choix.', value=False):
-                artiste_aleatoire = random.choice(liste_artistes)
-                st.markdown(artiste_aleatoire)
-
-            if st.checkbox('OK je vais lire ça.'):
-                livre_df = livre_df[livre_df['Titre'] != artiste_aleatoire]
-                livre_df = livre_df.sort_values(by=["Titre", "Genre"], ascending=False)
-                livre_df.to_csv('livres_a_jour.csv', index=False)
-                upload_csv(file_ids['livres'], 'livres_a_jour.csv')
-
-if __name__ == "__main__":
-    main()
+        if st.checkbox('OK je vais lire ça.'):
+            livre_df = livre_df[livre_df['Titre'] != artiste_aleatoire]
+            livre_df = livre_df.sort_values(by=["Titre", "Genre"], ascending=False)
+            livre_df.to_csv('livres_a_jour.csv', index=False)
+            upload_csv(file_ids['livres'], 'livres_a_jour.csv')
