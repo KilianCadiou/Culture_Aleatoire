@@ -13,7 +13,8 @@ rapidfuzz
 st-pages
 gdown
 pydrive
-google.oauth2.credentials 
-google_auth_oauthlib.flow
-googleapiclient.discovery 
-google.auth.transport.requests
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+pydrive
