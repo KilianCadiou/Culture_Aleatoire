@@ -5,11 +5,11 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0) 
+playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0, sep = ";") 
 playlist_film_selection = playlist_film.copy()
-playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0)
+playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0, sep = ";") 
 playlist_musique_selection = playlist_musique.copy()
-playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
+playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0, sep = ";") 
 playlist_livre_selection = playlist_livre.copy()
  
 st.header('Puisse le sort vous être favorable.')
@@ -47,8 +47,8 @@ if action == 'Un Film':
             playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
             playlist_film = playlist_film.sort_values(by = "Titre", ascending = False)
             playlist_film = playlist_film.sort_values(by = "Genre", ascending = False)
-            playlist_film.to_csv('BD/films_a_jour.csv')
-            playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
+            playlist_film.to_csv('BD/films_a_jour.csv', sep = ";") 
+            playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0, sep = ";") 
  
 if action == 'Une Musique':
 
@@ -99,8 +99,8 @@ if action == 'Une Musique':
 
         if acceptation:
             playlist_musique[playlist_musique['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"] = playlist_musique[playlist_musique['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"].apply(lambda x : x + 1)
-            playlist_musique.to_csv('BD/playlist_a_jour.csv')
-            playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0)
+            playlist_musique.to_csv('BD/playlist_a_jour.csv', sep = ";") 
+            playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0, sep = ";") 
 
 if action == 'Un Livre':
 
@@ -128,5 +128,5 @@ if action == 'Un Livre':
             playlist_livre = playlist_livre[playlist_livre['Titre'] != artiste_aleatoire]
             playlist_livre = playlist_livre.sort_values(by = "Titre", ascending = False)
             playlist_livre = playlist_livre.sort_values(by = "Genre", ascending = False)
-            playlist_livre.to_csv('BD/livres_a_jour.csv')
-            playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
+            playlist_livre.to_csv('BD/livres_a_jour.csv', sep = ";") 
+            playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0, sep = ";") 
