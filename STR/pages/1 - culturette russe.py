@@ -3,9 +3,9 @@ import streamlit as st
 import warnings
 import random
 import os
-import gdown
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
+import json
 
 # Filtrage des warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -14,16 +14,26 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 # Authentification Google Drive
 def google_drive_auth():
     gauth = GoogleAuth()
-    gauth.LoadCredentialsFile('client_secrets.json')  # Assurez-vous que le fichier est correct
 
-    if gauth.credentials is None:
-        gauth.LocalWebserverAuth()  # Authentification par navigateur
-    elif gauth.access_token_expired:
-        gauth.Refresh()
-    else:
-        gauth.Authorize()
+    # Charger les credentials depuis les secrets de Streamlit
+    credentials_json = st.secrets["google_drive"]["GOOGLE_DRIVE_CREDENTIALS"]
+    credentials = json.loads(credentials_json)
 
-    gauth.SaveCredentialsFile('client_secrets.json')
+    # Charger les credentials dans l'authentification PyDrive
+    gauth.credentials = GoogleAuth()
+    gauth.credentials.access_token = credentials["access_token"]
+    gauth.credentials.refresh_token = credentials["refresh_token"]
+    gauth.credentials.client_id = credentials["client_id"]
+    gauth.credentials.client_secret = credentials["client_secret"]
+    gauth.credentials.token_uri = credentials["token_uri"]
+    gauth.credentials.auth_uri = credentials["auth_uri"]
+    gauth.credentials.auth_provider_x509_cert_url = credentials["auth_provider_x509_cert_url"]
+    
+    # Si les credentials sont expirés, les rafraîchir
+    if gauth.credentials.access_token_expired:
+        gauth.credentials.refresh(gauth.credentials)
+
+    gauth.SaveCredentialsFile('client_secrets.json')  # Sauvegarder les credentials pour une future utilisation
     drive = GoogleDrive(gauth)
     return drive
 
