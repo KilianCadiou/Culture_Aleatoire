@@ -1,2 +1,5 @@
 **/.DS_Store
 /BD/*.csv
+!/BD/films_a_jour.csv
+!/BD/playlist_a_jour.csv
+!/BD/livres_a_jour.csv
