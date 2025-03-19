@@ -5,6 +5,77 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
+import os
+import gdown
+import pandas as pd
+
+def upload_csv(file_id, local_filename):
+    upload_file = drive.CreateFile({'id': file_id})
+    upload_file.SetContentFile(local_filename)
+    upload_file.Upload()
+
+
+# Créer le dossier BD s'il n'existe pas
+if not os.path.exists('BD'):
+    os.makedirs('BD')
+
+# === FILMS ===
+film_url = 'https://drive.google.com/file/d/1qVgY-V1j6BK83ZGG76zD-fHHjfvOevJB/view?usp=sharing'
+film_csv_path = 'BD/films_a_jour.csv'
+if not os.path.exists(film_csv_path):
+    gdown.download(film_url, film_csv_path, quiet=False)
+
+playlist_film = pd.read_csv(film_csv_path, index_col=0)
+
+# === MUSIQUE ===
+musique_url = 'https://drive.google.com/file/d/1qXWSjoCfCYbKfz58wlad_hKF4moyjZZC/view?usp=sharing'
+musique_csv_path = 'BD/playlist_a_jour.csv'
+if not os.path.exists(musique_csv_path):
+    gdown.download(musique_url, musique_csv_path, quiet=False)
+
+playlist_musique = pd.read_csv(musique_csv_path, index_col=0)
+
+# === LIVRES ===
+livre_url = 'https://drive.google.com/file/d/1qXPsMDfihJMkPyr0Z2xi-X6fJP5hlUza/view?usp=sharing'
+livre_csv_path = 'BD/livres_a_jour.csv'
+if not os.path.exists(livre_csv_path):
+    gdown.download(livre_url, livre_csv_path, quiet=False)
+
+playlist_livre = pd.read_csv(livre_csv_path, index_col=0)
+
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+import pandas as pd
+import streamlit as st
+import os
+
+# Authentification
+def google_drive_auth():
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()  # Lancement du serveur local pour authentification
+    drive = GoogleDrive(gauth)
+    return drive
+
+drive = google_drive_auth()
+
+def download_csv(file_id, local_filename):
+    downloaded = drive.CreateFile({'id': file_id})
+    downloaded.GetContentFile(local_filename)
+    df = pd.read_csv(local_filename)
+    return df
+
+file_id = '1qVgY-V1j6BK83ZGG76zD-fHHjfvOevJB'
+local_file = 'films_a_jour.csv'
+playlist_film = download_csv(file_id, local_file)
+
+file_id = '1qXWSjoCfCYbKfz58wlad_hKF4moyjZZC'
+local_file = 'playlist_a_jour.csv'
+playlist_musique = download_csv(file_id, local_file)
+
+file_id = '1qXPsMDfihJMkPyr0Z2xi-X6fJP5hlUza'
+local_file = 'livres_a_jour.csv'
+playlist_livre = download_csv(file_id, local_file)
+
 playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
 playlist_film_selection = playlist_film.copy()
 playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0)
@@ -48,8 +119,9 @@ if action == 'Un Film':
             playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
             playlist_film = playlist_film.sort_values(by = "Titre", ascending = False)
             playlist_film = playlist_film.sort_values(by = "Genre", ascending = False)
-            playlist_film.to_csv('BD/films_a_jour.csv')
-            playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
+
+            playlist_film.to_csv('films_a_jour.csv', index=False)
+            upload_csv("1qVgY-V1j6BK83ZGG76zD-fHHjfvOevJB", 'films_a_jour.csv')
 
 if action == 'Une Musique':
     
@@ -104,6 +176,9 @@ if action == 'Une Musique':
         if acceptation:
             playlist_musique[playlist_musique['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"] = playlist_musique[playlist_musique['Artiste'] == artiste_aleatoire]["Nombre d'écoutes"].apply(lambda x : x + 1)
 
+            playlist_musique.to_csv('playlist_a_jour.csv', index=False)
+            upload_csv('1qXWSjoCfCYbKfz58wlad_hKF4moyjZZC', 'playlist_a_jour.csv')
+
 
 if action == 'Un Livre':
 
@@ -134,6 +209,5 @@ if action == 'Un Livre':
             playlist_livre = playlist_livre[playlist_livre['Titre'] != artiste_aleatoire]
             playlist_livre = playlist_livre.sort_values(by = "Titre", ascending = False)
             playlist_livre = playlist_livre.sort_values(by = "Genre", ascending = False)
-            playlist_livre.to_csv('BD/livres_a_jour.csv')
-            playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
-
+            playlist_livre.to_csv('livres_a_jour.csv', index=False)
+            upload_csv("1qXPsMDfihJMkPyr0Z2xi", "livres_a_jour.csv")
