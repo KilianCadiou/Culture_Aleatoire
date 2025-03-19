@@ -5,7 +5,7 @@ import random
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-playlist_film = pd.read_csv('BD_Culture_Aleatoire/films_a_jour.csv', index_col=0)
+playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
 playlist_film_selection = playlist_film.copy()
 playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0)
 playlist_musique_selection = playlist_musique.copy()
@@ -47,8 +47,8 @@ if action == 'Un Film':
             playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
             playlist_film = playlist_film.sort_values(by = "Titre", ascending = False)
             playlist_film = playlist_film.sort_values(by = "Genre", ascending = False)
-            playlist_film.to_csv('BD_Culture_Aleatoire/films_a_jour.csv', index_col=0)
-            playlist_film = pd.read_csv('BD_Culture_Aleatoire/films_a_jour.csv', index_col=0)
+            playlist_film.to_csv('BD/films_a_jour.csv', index_col=0)
+            playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
  
 if action == 'Une Musique':
 
