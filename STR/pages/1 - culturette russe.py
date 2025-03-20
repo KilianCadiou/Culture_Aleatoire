@@ -23,33 +23,8 @@ actions = ['Je veux ...', 'Un Film', 'Une Musique', 'Un Livre']
 
 action = st.selectbox('Que souhaitez-vous faire ?', actions)
 
-if action == 'Un Film':
-    choix_genre = st.checkbox('Je veux un genre précis.', value=False)
-    if choix_genre: 
-        genre = st.selectbox('Choisissez le genre:', list(playlist_film['Genre'].unique()))
-        playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
 
-    liste_artistes = list(playlist_film_selection['Titre'].unique())
-
-    resultat = st.checkbox('On lance les dés.')
-
-    if resultat: 
-        artiste_aleatoire = random.choice(liste_artistes)
-        st.markdown(artiste_aleatoire)
-        relancer = st.checkbox('Relancer mon choix.', value=False)
-
-        if relancer:
-            artiste_aleatoire = random.choice(liste_artistes)
-            st.markdown(artiste_aleatoire)
-
-        acceptation = st.checkbox('OK je vais regarder ça.')
-
-        # if acceptation: 
-        #     playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
-        #     playlist_film = playlist_film.sort_values(by=["Titre", "Genre"], ascending=False)
-        #     playlist_film.to_csv('BD/films_a_jour.csv', index=True)
-
-elif action == 'Une Musique':
+if action == 'Une Musique':
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -77,15 +52,14 @@ elif action == 'Une Musique':
     resultat = st.checkbox('On lance les dés.')
 
     if resultat:
-        artiste_aleatoire = random.choice(liste_artistes)
-        st.markdown(artiste_aleatoire)
+        st.markdown(f"Artiste choisi : {st.session_state.artiste_aleatoire}")
         relancer = st.checkbox('Relancer mon choix.', value=False)
 
         if relancer:
-            playlist_musique_selection2 = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
+            playlist_musique_selection2 = playlist_musique_selection[playlist_musique_selection['Artiste'] != st.session_state.artiste_aleatoire]
             liste_artistes2 = list(playlist_musique_selection2['Artiste'].unique())
-            artiste_aleatoire2 = random.choice(liste_artistes2)
-            st.markdown(artiste_aleatoire2)
+            st.session_state.artiste_aleatoire2 = random.choice(liste_artistes2)
+            st.markdown(f"Nouvel artiste choisi : {st.session_state.artiste_aleatoire2}")
 
         acceptation = st.checkbox('OK je vais écouter ça.')
 
@@ -94,6 +68,32 @@ elif action == 'Une Musique':
         #     playlist_musique.loc[playlist_musique['Artiste'] == artiste_aleatoire, "Nombre d'écoutes"] += 1
         #     # Sauvegarde dans le fichier CSV
         #     playlist_musique.to_csv('BD/playlist_a_jour.csv', index=True)
+
+elif action == 'Un Film':
+    choix_genre = st.checkbox('Je veux un genre précis.', value=False)
+    if choix_genre: 
+        genre = st.selectbox('Choisissez le genre:', list(playlist_film['Genre'].unique()))
+        playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
+
+    liste_artistes = list(playlist_film_selection['Titre'].unique())
+
+    resultat = st.checkbox('On lance les dés.')
+
+    if resultat: 
+        artiste_aleatoire = random.choice(liste_artistes)
+        st.markdown(artiste_aleatoire)
+        relancer = st.checkbox('Relancer mon choix.', value=False)
+
+        if relancer:
+            artiste_aleatoire = random.choice(liste_artistes)
+            st.markdown(artiste_aleatoire)
+
+        acceptation = st.checkbox('OK je vais regarder ça.')
+
+        # if acceptation: 
+        #     playlist_film = playlist_film[playlist_film['Titre'] != artiste_aleatoire]
+        #     playlist_film = playlist_film.sort_values(by=["Titre", "Genre"], ascending=False)
+        #     playlist_film.to_csv('BD/films_a_jour.csv', index=True)
 
 elif action == 'Un Livre':
     choix_genre = st.checkbox('Je veux un genre précis.', value=False)
