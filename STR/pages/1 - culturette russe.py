@@ -82,8 +82,7 @@ elif action == 'Un Film':
 
     if choix_genre:
         liste_genres = list(playlist_film['Genre'].unique())
-        if np.NaN in liste_genres:
-            liste_genres.remove(np.NaN)
+        liste_genres = [genre for genre in liste_genres if pd.notna(genre)]
 
         liste_genres.sort()
         genre = st.selectbox('Choisissez le genre:', liste_genres)
