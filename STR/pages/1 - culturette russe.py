@@ -76,10 +76,20 @@ if action == 'Une Musique':
         #     playlist_musique.to_csv('BD/playlist_a_jour.csv', index=True)
 
 elif action == 'Un Film':
+
     choix_genre = st.checkbox('Je veux un genre précis.', value=False)
-    if choix_genre: 
-        genre = st.selectbox('Choisissez le genre:', list(playlist_film['Genre'].unique()))
+
+    if choix_genre:
+        liste_genres = list(playlist_film['Genre'].unique())
+        if 'nan' in liste_genres:
+            liste_genres.pop('nan')
+        liste_genres.sort()
+        genre = st.selectbox('Choisissez le genre:', liste_genres)
         playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
+    
+    # if choix_genre: 
+    #     genre = st.selectbox('Choisissez le genre:', list(playlist_film['Genre'].unique()))
+    #     playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
 
     liste_artistes = list(playlist_film_selection['Titre'].unique())
 
@@ -100,7 +110,11 @@ elif action == 'Un Livre':
     choix_genre = st.checkbox('Je veux un genre précis.', value=False)
 
     if choix_genre:
-        genre = st.selectbox('Choisissez le genre:', list(playlist_livre['Genre'].unique()))
+        liste_genres = list(playlist_livre['Genre'].unique())
+        if 'nan' in liste_genres:
+            liste_genres.pop('nan')
+        liste_genres.sort()
+        genre = st.selectbox('Choisissez le genre:', liste_genres)
         playlist_livre_selection = playlist_livre_selection[playlist_livre_selection['Genre'] == genre]
 
     liste_artistes = list(playlist_livre_selection['Titre'].unique())
