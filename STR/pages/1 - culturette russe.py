@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import warnings
 import random
+import numpy as np
 
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -81,8 +82,9 @@ elif action == 'Un Film':
 
     if choix_genre:
         liste_genres = list(playlist_film['Genre'].unique())
-        # if 'nan' in liste_genres:
-        #     liste_genres.remove('nan')
+        if np.NaN in liste_genres:
+            liste_genres.remove(np.NaN)
+
         liste_genres.sort()
         genre = st.selectbox('Choisissez le genre:', liste_genres)
         playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
