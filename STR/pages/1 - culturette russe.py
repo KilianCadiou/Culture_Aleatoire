@@ -28,13 +28,13 @@ if action == 'Une Musique':
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        choix_genre = st.checkbox('Je veux un style de musique précis.', value=False)
+        choix_genre = st.toggle('Je veux un style de musique précis.', value=False)
         if choix_genre:
             genre = st.selectbox('Choisissez le genre:', list(playlist_musique['Genre'].unique()))
             playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Genre'] == genre]
 
     with col2:
-        choix_francais = st.checkbox('Je veux de la musique française.', value=False)
+        choix_francais = st.toggle('Je veux de la musique française.', value=False)
         if choix_francais:
             france = st.selectbox('Réponse :', ['Oui', 'Non'])
             if france == 'Oui':
@@ -43,7 +43,7 @@ if action == 'Une Musique':
                 playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == False]
 
     with col3:
-        choix_rare = st.checkbox("Je veux un artiste que j'ai peu écouté.", value=False)
+        choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.", value=False)
         if choix_rare:
             playlist_musique_selection = playlist_musique_selection[playlist_musique_selection["Nombre d'écoutes"] == playlist_musique_selection["Nombre d'écoutes"].min()]
 
