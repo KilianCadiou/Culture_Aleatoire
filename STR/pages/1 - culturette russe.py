@@ -83,16 +83,11 @@ elif action == 'Un Film':
 
     liste_artistes = list(playlist_film_selection['Titre'].unique())
 
-    resultat = st.checkbox('On lance les dés.')
+    resultat = st.toggle('On lance les dés.', value=False)
 
-    if resultat: 
+    if resultat == True:
         artiste_aleatoire = random.choice(liste_artistes)
         st.markdown(artiste_aleatoire)
-        relancer = st.checkbox('Relancer mon choix.', value=False)
-
-        if relancer:
-            artiste_aleatoire = random.choice(liste_artistes)
-            st.markdown(artiste_aleatoire)
 
         acceptation = st.checkbox('OK je vais regarder ça.')
 
@@ -109,16 +104,12 @@ elif action == 'Un Livre':
         playlist_livre_selection = playlist_livre_selection[playlist_livre_selection['Genre'] == genre]
 
     liste_artistes = list(playlist_livre_selection['Titre'].unique())
-    resultat = st.checkbox('On lance les dés.')
 
-    if resultat:
+    resultat = st.toggle('On lance les dés.', value=False)
+
+    if resultat == True:
         artiste_aleatoire = random.choice(liste_artistes)
         st.markdown(artiste_aleatoire)
-        relancer = st.checkbox('Relancer mon choix.', value=False)
-
-        if relancer:
-            artiste_aleatoire = random.choice(liste_artistes)
-            st.markdown(artiste_aleatoire)
 
         acceptation = st.checkbox('OK je vais lire ça.')
 
