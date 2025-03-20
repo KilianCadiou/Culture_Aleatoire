@@ -82,7 +82,7 @@ elif action == 'Un Film':
     if choix_genre:
         liste_genres = list(playlist_film['Genre'].unique())
         if 'nan' in liste_genres:
-            liste_genres.pop('nan')
+            liste_genres.remove('nan')
         liste_genres.sort()
         genre = st.selectbox('Choisissez le genre:', liste_genres)
         playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
