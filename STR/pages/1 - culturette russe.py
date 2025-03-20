@@ -48,22 +48,24 @@ if action == 'Une Musique':
     liste_artistes = list(playlist_musique_selection['Artiste'].unique())
 
     if 'artiste_aleatoire' not in st.session_state:
-        st.session_state.artiste_aleatoire = random.choice(liste_artistes)
+        artiste_aleatoire = random.choice(liste_artistes)
     
     if 'artiste_aleatoire2' not in st.session_state:
-        st.session_state.artiste_aleatoire2 = None
+        artiste_aleatoire2 = None
 
-    resultat = st.checkbox('On lance les dés.')
+    resultat = st.toggle('On lance les dés.', value=False)
 
-    if resultat:
-        st.markdown(st.session_state.artiste_aleatoire)
-        relancer = st.checkbox('Relancer mon choix.', value=False)
+    if resultat == True:
+        artiste_aleatoire = random.choice(liste_artistes)
+        st.markdown(artiste_aleatoire)
 
-        if relancer:
-            playlist_musique_selection2 = playlist_musique_selection[playlist_musique_selection['Artiste'] != st.session_state.artiste_aleatoire]
-            liste_artistes2 = list(playlist_musique_selection2['Artiste'].unique())
-            st.session_state.artiste_aleatoire2 = random.choice(liste_artistes2)
-            st.markdown(st.session_state.artiste_aleatoire2)
+        # relancer = st.checkbox('Relancer mon choix.', value=False)
+
+        # if relancer:
+        #     playlist_musique_selection2 = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
+        #     liste_artistes2 = list(playlist_musique_selection2['Artiste'].unique())
+        #     artiste_aleatoire2 = random.choice(liste_artistes2)
+        #     st.markdown(artiste_aleatoire2)
 
         acceptation = st.checkbox('OK je vais écouter ça.')
 
