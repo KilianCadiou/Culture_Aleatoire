@@ -7,18 +7,3 @@ icon = "🎲"
 path = "pages/0 - Contexte.py"
 name = "Contexte"
 icon = "🤔"
-
-[[pages]]
-path = "pages/2 - proposition_films.py"
-name = "Film"
-icon = "🎥"
-
-[[pages]]
-path = "pages/3 - proposition_musique.py"
-name = "Musique"
-icon = "🎙️"
-
-[[pages]]
-path = "pages/4 - proposition_livre.py"
-name = "Livre"
-icon = "📖"

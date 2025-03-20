@@ -7,11 +7,11 @@ warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 # Chargement des fichiers CSV
-playlist_film = pd.read_csv('BD/films_a_jour.csv', index_col=0)
+playlist_film = pd.read_csv('https://docs.google.com/spreadsheets/d/1Uw59rRaTDXjfiMNiGco1FZO4VI5wkIer0bxllLiHxVQ/export?format=csv&gid=442082949#gid=442082949')
 playlist_film_selection = playlist_film.copy()
-playlist_musique = pd.read_csv('BD/playlist_a_jour.csv', index_col=0)
+playlist_musique = pd.read_csv('https://docs.google.com/spreadsheets/d/1Uw59rRaTDXjfiMNiGco1FZO4VI5wkIer0bxllLiHxVQ/export?format=csv&gid=0#gid=0')
 playlist_musique_selection = playlist_musique.copy()
-playlist_livre = pd.read_csv('BD/livres_a_jour.csv', index_col=0)
+playlist_livre = pd.read_csv('https://docs.google.com/spreadsheets/d/1Uw59rRaTDXjfiMNiGco1FZO4VI5wkIer0bxllLiHxVQ/export?format=csv&gid=1652576992#gid=1652576992')
 playlist_livre_selection = playlist_livre.copy()
 
 st.header('Puisse le sort vous être favorable.')
