@@ -31,7 +31,11 @@ if action == 'Une Musique':
     with col1:
         choix_genre = st.toggle('Je veux un style de musique précis.', value=False)
         if choix_genre:
-            genre = st.selectbox('Choisissez le genre:', list(playlist_musique['Genre'].unique()))
+            liste_genres = list(playlist_film['Genre'].unique())
+            liste_genres = [genre for genre in liste_genres if pd.notna(genre)]
+            liste_genres.sort()
+
+            genre = st.selectbox('Choisissez le genre:', liste_genres)
             playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Genre'] == genre]
 
     with col2:
@@ -83,7 +87,6 @@ elif action == 'Un Film':
     if choix_genre:
         liste_genres = list(playlist_film['Genre'].unique())
         liste_genres = [genre for genre in liste_genres if pd.notna(genre)]
-
         liste_genres.sort()
         genre = st.selectbox('Choisissez le genre:', liste_genres)
         playlist_film_selection = playlist_film_selection[playlist_film_selection['Genre'] == genre]
@@ -112,8 +115,7 @@ elif action == 'Un Livre':
 
     if choix_genre:
         liste_genres = list(playlist_livre['Genre'].unique())
-        if 'nan' in liste_genres:
-            liste_genres.pop('nan')
+        liste_genres = [genre for genre in liste_genres if pd.notna(genre)]
         liste_genres.sort()
         genre = st.selectbox('Choisissez le genre:', liste_genres)
         playlist_livre_selection = playlist_livre_selection[playlist_livre_selection['Genre'] == genre]
