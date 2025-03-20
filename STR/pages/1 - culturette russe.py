@@ -31,7 +31,7 @@ if action == 'Une Musique':
     with col1:
         choix_genre = st.toggle('Je veux un style de musique précis.', value=False)
         if choix_genre:
-            liste_genres = list(playlist_film['Genre'].unique())
+            liste_genres = list(playlist_musique['Genre'].unique())
             liste_genres = [genre for genre in liste_genres if pd.notna(genre)]
             liste_genres.sort()
 
