@@ -49,6 +49,12 @@ if action == 'Une Musique':
 
     liste_artistes = list(playlist_musique_selection['Artiste'].unique())
 
+    if 'artiste_aleatoire' not in st.session_state:
+        st.session_state.artiste_aleatoire = random.choice(liste_artistes)
+    
+    if 'artiste_aleatoire2' not in st.session_state:
+        st.session_state.artiste_aleatoire2 = None
+        
     resultat = st.checkbox('On lance les dés.')
 
     if resultat:
