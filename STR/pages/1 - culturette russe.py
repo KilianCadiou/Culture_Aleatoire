@@ -9,6 +9,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 # Chargement des fichiers CSV
 playlist_film = pd.read_csv('https://docs.google.com/spreadsheets/d/1Uw59rRaTDXjfiMNiGco1FZO4VI5wkIer0bxllLiHxVQ/export?format=csv&gid=442082949#gid=442082949')
 playlist_film_selection = playlist_film.copy()
+playlist_film_selection2 = playlist_film.copy()
 playlist_musique = pd.read_csv('https://docs.google.com/spreadsheets/d/1Uw59rRaTDXjfiMNiGco1FZO4VI5wkIer0bxllLiHxVQ/export?format=csv&gid=0#gid=0')
 playlist_musique_selection = playlist_musique.copy()
 playlist_livre = pd.read_csv('https://docs.google.com/spreadsheets/d/1Uw59rRaTDXjfiMNiGco1FZO4VI5wkIer0bxllLiHxVQ/export?format=csv&gid=1652576992#gid=1652576992')
@@ -81,9 +82,9 @@ elif action == 'Une Musique':
         relancer = st.checkbox('Relancer mon choix.', value=False)
 
         if relancer:
-            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
-            liste_artistes = list(playlist_musique_selection['Artiste'].unique())
-            artiste_aleatoire2 = random.choice(liste_artistes)
+            playlist_musique_selection2 = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
+            liste_artistes2 = list(playlist_musique_selection2['Artiste'].unique())
+            artiste_aleatoire2 = random.choice(liste_artistes2)
             st.markdown(artiste_aleatoire2)
 
         acceptation = st.checkbox('OK je vais écouter ça.')
