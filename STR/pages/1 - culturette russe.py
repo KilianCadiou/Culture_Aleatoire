@@ -35,12 +35,10 @@ if action == 'Une Musique':
 
     with col2:
         choix_francais = st.toggle('Je veux de la musique française.', value=False)
-        if choix_francais:
-            france = st.selectbox('Réponse :', ['Oui', 'Non'])
-            if france == 'Oui':
-                playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == True]
-            else:
-                playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == False]
+        if choix_francais == True:
+            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == 'TRUE']
+        else:
+            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == 'FALSE']
 
     with col3:
         choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.", value=False)
