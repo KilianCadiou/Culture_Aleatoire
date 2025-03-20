@@ -83,8 +83,8 @@ elif action == 'Une Musique':
         if relancer:
             playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Artiste'] != artiste_aleatoire]
             liste_artistes = list(playlist_musique_selection['Artiste'].unique())
-            artiste_aleatoire = random.choice(liste_artistes)
-            st.markdown(artiste_aleatoire)
+            artiste_aleatoire2 = random.choice(liste_artistes)
+            st.markdown(artiste_aleatoire2)
 
         acceptation = st.checkbox('OK je vais écouter ça.')
 
