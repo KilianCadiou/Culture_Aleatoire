@@ -26,7 +26,7 @@ action = st.selectbox('Que souhaitez-vous faire ?', actions)
 
 
 if action == 'Une Musique':
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
 
     with col1:
         choix_genre = st.toggle('Je veux un style de musique précis.', value=False)
@@ -45,10 +45,10 @@ if action == 'Une Musique':
         else:
             playlist_musique_selection = playlist_musique_selection[playlist_musique_selection['Français'] == False]
 
-    with col3:
-        choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.", value=False)
-        if choix_rare:
-            playlist_musique_selection = playlist_musique_selection[playlist_musique_selection["Nombre d'écoutes"] == playlist_musique_selection["Nombre d'écoutes"].min()]
+    # with col3:
+    #     choix_rare = st.toggle("Je veux un artiste que j'ai peu écouté.", value=False)
+    #     if choix_rare:
+    #         playlist_musique_selection = playlist_musique_selection[playlist_musique_selection["Nombre d'écoutes"] == playlist_musique_selection["Nombre d'écoutes"].min()]
 
     liste_artistes = list(playlist_musique_selection['Artiste'].unique())
 
